@@ -64,8 +64,6 @@
     this.removeTask = function (task, event){
       this.checklist.removeTask(task.id)
       this.tasks(this.checklist.tasks)
-      // console.log('this is spark')
-      // console.log(event.target)
     }
   }
 
@@ -115,9 +113,26 @@
 
 })(ko)
 
+// new Accordion('.container-first');
 
+// User options
 
+const accordion = new Accordion('.info-wrapper', {
+  duration: 400,
+  openOnInit: [0],
+  showMultiple: true,
+  elementClass: 'category__wrapper',
+  triggerClass: 'category__accordion',
+  panelClass: 'elements',
+  beforeOpen: function(currentElement) {
+    currentElement.querySelector('.category__accordion').classList.add('rotate')
+  },
+  beforeClose: function (currentElement){
+    currentElement.querySelector('.category__accordion').classList.remove('rotate')
+  }
+});
 
+document.querySelector('.category__accordion').classList.add('rotate')
 
 
 

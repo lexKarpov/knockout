@@ -3,9 +3,11 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Draggable, droppable, and sortable list (2.0)</title>
-<!--  <script type='text/javascript' src='./jquery-1.9.1.js'></script>-->
+  <!--  <script type='text/javascript' src='./jquery-1.9.1.js'></script>-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--  <link rel="stylesheet" href="https://unpkg.com/accordion-js@3.3.4/dist/accordion.min.css">-->
+
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
@@ -55,7 +57,7 @@
     </ul>
   </header>
   <main class="main">
-    <form class="search" >
+    <form class="search">
       <label class="search__label">
         <img src="./UI/icons/search.svg" alt="search" class="search__icon" data-bind="click: addTask">
         <input type="text" class="search__input" data-bind="textInput: newTaskTitle">
@@ -65,7 +67,7 @@
 
     <ul class="info-wrapper no-list-style" data-bind="foreach: tasks" id="sortable">
       <li class="category__wrapper">
-        <div class="category">
+        <div class="category ac-header">
           <img src="./UI/icons/openAccordion.svg" alt="close list" class="category__accordion">
           <h2 class="category__title" data-bind="text: title"></h2>
           <ul class="colors no-list-style">
@@ -79,7 +81,7 @@
               <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon">
             </li>
 
-<!--            <li data-bind="click: removeTask" class="action action_type_delete">-->
+            <!--            <li data-bind="click: removeTask" class="action action_type_delete">-->
             <li data-bind="click: function(task, e){$parent.removeTask(task, e)}" class="action action_type_delete">
               <img src="./UI/icons/category/delete.svg" alt="delete" class="action__icon">
             </li>
@@ -101,8 +103,9 @@
               <li class="action action_type_edit">
                 <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon"></li>
               <li class="action action_type_delete">
-                <img src="./UI/icons/category/delete.svg" alt="delete" class="action__icon action__icon_type_delete-category">
-<!--                <img onclick="console.log('yeeeee')" src="./UI/icons/category/delete.svg" alt="delete" class="action__icon action__icon_type_delete-category">-->
+                <img src="./UI/icons/category/delete.svg" alt="delete"
+                     class="action__icon action__icon_type_delete-category">
+                <!--                <img onclick="console.log('yeeeee')" src="./UI/icons/category/delete.svg" alt="delete" class="action__icon action__icon_type_delete-category">-->
               </li>
               <li class="action action_type_move">
                 <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">
@@ -120,6 +123,8 @@
 <!--<script src="https://code.jquery.com/jquery-3.6.0.js"></script>-->
 <!--<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>-->
 <!--<script src="dragNDrop.js"></script>-->
+<script src="https://unpkg.com/accordion-js@3.3.4/dist/accordion.min.js"></script>
+
 <script type='text/javascript' src="./knockout-3.5.1.js"></script>
 <script src="index.js"></script>
 </body>

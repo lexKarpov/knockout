@@ -6,8 +6,6 @@
   <!--  <script type='text/javascript' src='./jquery-1.9.1.js'></script>-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!--  <link rel="stylesheet" href="https://unpkg.com/accordion-js@3.3.4/dist/accordion.min.css">-->
-
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
@@ -57,13 +55,23 @@
     </ul>
   </header>
   <main class="main">
+
+
+
     <form class="search">
       <label class="search__label">
         <img src="./UI/icons/search.svg" alt="search" class="search__icon" data-bind="click: addTask">
-        <input type="text" class="search__input" data-bind="textInput: newTaskTitle">
+<!--        <input type="text" class="search__input" data-bind="textInput: inputTask">-->
+        <input type="text" class="search__input" data-bind="textInput: inputTask">
+
         <img src="./UI/icons/close.svg" alt="close" class="search__clear">
       </label>
+
     </form>
+
+<!--    <p data-bind="text: searchTask">sdf</p>-->
+
+
 
     <ul class="info-wrapper no-list-style" data-bind="foreach: tasks" id="sortable">
       <li class="category__wrapper">

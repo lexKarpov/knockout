@@ -52,20 +52,40 @@
   ]
   let ChecklistViewModel = function (checklist) {
     this.checklist = checklist
-    this.newTaskTitle = ko.observable('')
+    this.inputTask = ko.observable('')
+
     this.tasks = ko.observableArray(checklist.tasks)
+
+    // this.searchTask = ko.computed(function () {
+    //   console.log('sdfsdfsdf')
+    //
+    // })
+
+    this.searchTask = ko.computed(function() {
+
+
+      const findedTasks = this.tasks().filter(el => el.title.toLowerCase().trim().includes(this.inputTask().toLowerCase().trim()))
+      console.log(findedTasks)
+
+      // return this.inputTask() + " " + this.inputTask();
+    }, this, { pure: false });
 
     this.addTask = function () {
       this.checklist.addTask(this.newTaskTitle())
-      this.newTaskTitle('')
+      this.inputTask('')
       this.tasks(this.checklist.tasks)
     }
 
-    this.removeTask = function (task, event){
+    this.removeTask = function (task, event) {
       this.checklist.removeTask(task.id)
       this.tasks(this.checklist.tasks)
     }
   }
+
+  // ChecklistViewModel.searchTask = ko.computed(function (){
+  //   // return this.inputTask
+  //   console.log('sdfsdfsdf')
+  // }).bind("this value", 1, 2)
 
   let Checklist = function () {
     this.tasks = initialArray;
@@ -103,7 +123,6 @@
     // this.checkTask = function (id) {
     //
     // }
-
   }
 
   let checklist = new Checklist()
@@ -124,10 +143,10 @@ const accordion = new Accordion('.info-wrapper', {
   elementClass: 'category__wrapper',
   triggerClass: 'category__accordion',
   panelClass: 'elements',
-  beforeOpen: function(currentElement) {
+  beforeOpen: function (currentElement) {
     currentElement.querySelector('.category__accordion').classList.add('rotate')
   },
-  beforeClose: function (currentElement){
+  beforeClose: function (currentElement) {
     currentElement.querySelector('.category__accordion').classList.remove('rotate')
   }
 });

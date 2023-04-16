@@ -65,60 +65,120 @@
              data-bind="class: displayCloseIconStatus, click: clearInput"/>
       </label>
     </form>
-
-    <ul class="info-wrapper no-list-style" data-bind="foreach: categories" id="sortable">
+    <ul class="info no-list-style" data-bind="foreach: categories" id="sortable">
       <li class="category__wrapper">
         <div class="category ac-header">
           <img src="./UI/icons/openAccordion.svg" alt="close list" class="category__accordion">
           <h2 class="category__title" data-bind="text: title"></h2>
           <ul class="colors no-list-style">
-            <li class="colors__item colors__item_type_pink"/>
-            <li class="colors__item colors__item_type_yellow"/>
-            <li class="colors__item colors__item_type_orange"/>
+            <li class="colors__item" data-bind="if: colors.includes('pink')">
+              <button class="colors__item-button colors__item_type_pink"></button>
+            </li>
+            <li class="colors__item" data-bind="if: colors.includes('yellow')">
+              <button class="colors__item-button colors__item_type_yellow"></button>
+            </li>
+            <li class="colors__item" data-bind="if: colors.includes('orange')">
+              <button class="colors__item-button colors__item_type_orange"></button>
+            </li>
+            <li class="colors__item" data-bind="if: colors.includes('blue')">
+              <button class="colors__item-button colors__item_type_blue"></button>
+            </li>
+            <li class="colors__item" data-bind="if: colors.includes('gray')">
+              <button class="colors__item-button colors__item_type_gray"></button>
+            </li>
           </ul>
           <p class="category__description" data-bind="text: desc"></p>
           <ul class="actions no-list-style">
-
             <li class="action action_type_edit">
               <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon">
             </li>
-
             <li data-bind="click: function(task, e){$parent.removeCategory(task, e)}" class="action action_type_delete">
               <img src="./UI/icons/category/delete.svg" alt="delete" class="action__icon">
             </li>
-
             <li class="action action_type_move">
               <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move">
             </li>
           </ul>
         </div>
         <ul class="elements no-list-style" data-bind="foreach: $root.elements">
-          <!--        <ul class="elements no-list-style" data-bind="foreach: function(task, e){console.log('lsdkfj') return $root.elements}">-->
-          <li class="elements__item" data-bind="if: binded.includes($parent.type)">
-<!--            <div data-bind="if: binded.includes('requreAll')">-->
-<!--              <h3 class="elements__title" data-bind="text: title"></h3>-->
-<!--            </div>-->
-            <h3 class="elements__title" data-bind="text: title"></h3>
-            <ul class="colors no-list-style">
-              <li class="colors__item colors__item_type_blue"/>
-            </ul>
-            <p class="elements__type" data-bind="text: itemType"></p>
-            <p class="category__description" data-bind="text: desc"></p>
-            <ul class="actions no-list-style">
-              <li class="action action_type_edit">
-                <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon"></li>
-              <li class="action action_type_delete">
-                <img src="./UI/icons/category/delete.svg" alt="delete"
-                     class="action__icon action__icon_type_delete-category">
-              </li>
-              <li class="action action_type_move">
-                <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">
-              </li>
-            </ul>
+          <li class="elements__wrapper-item" data-bind="if: binded.includes($parent.type)">
+            <div class="elements__item">
+              <h3 class="elements__title" data-bind="text: title"></h3>
+              <ul class="colors no-list-style">
+                <li class="colors__item" data-bind="if: colors.includes('pink')">
+                  <button class="colors__item-button colors__item_type_pink"></button>
+                </li>
+                <li class="colors__item" data-bind="if: colors.includes('yellow')">
+                  <button class="colors__item-button colors__item_type_yellow"></button>
+                </li>
+                <li class="colors__item" data-bind="if: colors.includes('orange')">
+                  <button class="colors__item-button colors__item_type_orange"></button>
+                </li>
+                <li class="colors__item" data-bind="if: colors.includes('blue')">
+                  <button class="colors__item-button colors__item_type_blue"></button>
+                </li>
+                <li class="colors__item" data-bind="if: colors.includes('gray')">
+                  <button class="colors__item-button colors__item_type_gray"></button>
+                </li>
+              </ul>
+              <p class="elements__type" data-bind="text: itemType"></p>
+              <p class="category__description" data-bind="text: desc"></p>
+              <ul class="actions no-list-style">
+                <li class="action action_type_edit">
+                  <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon"></li>
+                <li class="action action_type_delete">
+                  <img src="./UI/icons/category/delete.svg" alt="delete"
+                       class="action__icon action__icon_type_delete-category">
+                </li>
+                <li class="action action_type_move">
+                  <img src="./UI/icons/category/move.svg" alt="move"
+                       class="action__icon action__icon_type_move-element">
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
       </li>
+    </ul>
 
+    <ul class="elements no-list-style" data-bind="foreach: $root.elements">
+      <li class="elements__wrapper-item-without-category" data-bind="if: binded.includes('uncategorized')">
+        <div class="elements__item">
+          <h3 class="elements__title" data-bind="text: title"></h3>
+          <ul class="colors no-list-style">
+            <ul class="colors no-list-style">
+              <li class="colors__item" data-bind="if: colors.includes('pink')">
+                <button class="colors__item-button colors__item_type_pink"></button>
+              </li>
+              <li class="colors__item" data-bind="if: colors.includes('yellow')">
+                <button class="colors__item-button colors__item_type_yellow"></button>
+              </li>
+              <li class="colors__item" data-bind="if: colors.includes('orange')">
+                <button class="colors__item-button colors__item_type_orange"></button>
+              </li>
+              <li class="colors__item" data-bind="if: colors.includes('blue')">
+                <button class="colors__item-button colors__item_type_blue"></button>
+              </li>
+              <li class="colors__item" data-bind="if: colors.includes('gray')">
+                <button class="colors__item-button colors__item_type_gray"></button>
+              </li>
+          </ul>
+          <p class="elements__type" data-bind="text: itemType"></p>
+          <p class="category__description" data-bind="text: desc"></p>
+          <ul class="actions no-list-style">
+            <li class="action action_type_edit">
+              <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon"></li>
+            <li class="action action_type_delete">
+              <img src="./UI/icons/category/delete.svg" alt="delete"
+                   class="action__icon action__icon_type_delete-category">
+            </li>
+            <li class="action action_type_move">
+              <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
     </ul>
   </main>
   <footer>

@@ -58,7 +58,6 @@
 }
 
 /*main*/
-
 .search__label{
   display: grid;
   grid-template-columns: max-content 1fr max-content;
@@ -136,6 +135,11 @@
 
 /*accordion list*/
 
+.info{
+  margin: 14px 0;
+  padding: 0;
+}
+
 .category__wrapper{
   box-sizing:border-box
 }
@@ -163,14 +167,24 @@
   justify-content: space-between;
   align-items: center;
   gap: 6px;
-  max-width: 36px;
+  max-width: max-content;
 }
 
 .colors__item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colors__item-button{
+  border: none;
   border-radius: 50%;
   width: 8px;
   height: 8px;
-
+  max-width: 8px;
+  max-height: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .colors__item_type_pink{
@@ -193,6 +207,8 @@
 .colors__item_type_gray{
   background: #8E9CBB;
 }
+
+
 
 .category{
   width: 1190px;
@@ -231,11 +247,13 @@
 }
 
 /*element of category*/
+.elements__wrapper-item{
+  margin-left: 16px;
+}
 
 .elements__item{
   max-width: 1174px;
   padding: 9px 15px;
-  margin-left: 16px;
   display: grid;
   grid-template-columns: repeat(3, max-content) 1fr max-content;
   align-items: center;

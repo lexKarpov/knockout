@@ -5,6 +5,7 @@
       title: 'Обязательные для всех',
       type: 'requreAll',
       desc: 'Документы, обязательные для всех сотрудников без исключения',
+      colors: ['pink', 'yellow', 'orange'],
     },
 
     {
@@ -12,12 +13,14 @@
       title: 'Обязательные для трудоустройства',
       type: 'requireForWork',
       desc: 'Документы, без которых невозможно трудоустройство человека на какую бы то ни было должность в компании вне зависимости от граж',
+      colors: [''],
     },
     {
       id: 2,
       title: 'Специальные',
       type: 'special',
       desc: '',
+      colors: [''],
     },
   ]
 
@@ -33,7 +36,7 @@
     },
     {
       title: 'ИНН',
-      colors: ['orange'],
+      colors: [],
       itemType: 'Обязательный',
       desc: 'Для всех',
       binded: [
@@ -43,7 +46,7 @@
     },
     {
       title: 'Водительские права',
-      colors: ['orange'],
+      colors: [],
       itemType: 'для водителей',
       desc: 'Для водителей погрузчиков, грузовых автомобилей',
       binded: [
@@ -53,13 +56,26 @@
     {
       title: 'Тестовое задание кандидата',
       colors: [],
-      itemType: 'для кандидата',
+      itemType: '',
       desc: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
-      binded: [],
+      binded: ['uncategorized'],
+    },
+    {
+      title: 'Трудовой договор',
+      colors: ['blue', 'gray'],
+      itemType: '',
+      desc: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
+      binded: ['uncategorized'],
+    },
+    {
+      title: 'Мед. книжка',
+      colors: [],
+      itemType: '',
+      desc: '',
+      binded: ['uncategorized'],
     }
   ]
   let ChecklistViewModel = function () {
-    const testLength = 30
     this.searchInput = ko.observable('')
 
     this.categories = ko.observableArray(initialArray)
@@ -123,7 +139,7 @@
 
 // User options
 
-const accordion = new Accordion('.info-wrapper', {
+const accordion = new Accordion('.info', {
   duration: 400,
   openOnInit: [0],
   showMultiple: true,

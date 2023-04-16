@@ -50,48 +50,39 @@
       ],
     },
   ]
-  let ChecklistViewModel = function (checklist) {
-    this.checklist = checklist
-    this.inputTask = ko.observable('')
-    this.tasks = ko.observableArray(checklist.tasks)
+  let ChecklistViewModel = function () {
 
+    this.searchInput = ko.observable('')
+
+    this.categories = ko.observableArray(initialArray)
+
+    //CATEGORIES ACTIONS
     this.displayCloseIconStatus = ko.computed(function() {
-      return this.inputTask() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
+      return this.searchInput() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
     }, this, { pure: false });
 
     this.clearInput = function (){
-      this.inputTask('')
+      this.searchInput('')
     }
 
-    this.searchTask = ko.computed(function() {
-      const findedTasks = this.tasks().filter(el => el.title.toLowerCase().trim().includes(this.inputTask().toLowerCase().trim()))
+    this.search = ko.computed(function() {
+      const findedTasks = this.categories().filter(el => el.title.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim()))
       return findedTasks
     }, this, { pure: false });
 
     this.submitSearch = function (){
-      console.log(this.searchTask())
+      console.log(this.search())
     }
 
-    this.addTask = function () {
-      this.checklist.addTask(this.inputTask())
-      this.inputTask('')
-      this.tasks(this.checklist.tasks)
-    }
+    this.removeCategory = function (element) {
+      const withoutDeleteItem = this.categories().filter(el => el.id !== element.id)
+      this.categories(withoutDeleteItem)
+    };
 
-
-    this.removeTask = function (task, event) {
-      this.checklist.removeTask(task.id)
-      this.tasks(this.checklist.tasks)
-    }
-  }
-
-  let Checklist = function () {
-    this.tasks = initialArray;
-
-    this.addTask = function (taskTitle) {
-      this.tasks.push(
+    this.addCategory = function (taskTitle) {
+      this.categories().push(
         {
-          id: this.tasks.length,
+          id: this.categories.length,
           title: taskTitle,
           type: 'category',
           desc: 'Документы, обязательные для всех сотрудников без исключения',
@@ -111,17 +102,11 @@
           ],
         },
       )
-      // console.log(this.tasks)
     }
-
-    this.removeTask = function (id) {
-      this.tasks = this.tasks.filter(el => el.id !== id)
-    };
+    this.searchInput('')
   }
 
-  let checklist = new Checklist()
-
-  ko.applyBindings(new ChecklistViewModel(checklist), document.getElementById('main'))
+  ko.applyBindings(new ChecklistViewModel(), document.getElementById('main'))
 
 })(ko)
 

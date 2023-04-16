@@ -55,27 +55,17 @@
     </ul>
   </header>
   <main class="main">
-
     <form class="search" data-bind="submit: submitSearch">
       <label class="search__label">
         <button class="search__submit" type="submit">
           <img src="./UI/icons/search.svg" alt="search" class="search__icon">
         </button>
-<!--        <input type="text" class="search__input" data-bind="textInput: inputTask">-->
-        <input type="text" class="search__input" data-bind="textInput: inputTask">
-
-<!--        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="visible: isInputLength">-->
-<!--        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="class: displayCloseIconStatus">-->
+        <input type="text" class="search__input" data-bind="textInput: searchInput">
         <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="class: displayCloseIconStatus, click: clearInput" />
       </label>
-
     </form>
 
-<!--    <p data-bind="text: searchTask">sdf</p>-->
-
-
-
-    <ul class="info-wrapper no-list-style" data-bind="foreach: tasks" id="sortable">
+    <ul class="info-wrapper no-list-style" data-bind="foreach: categories" id="sortable">
       <li class="category__wrapper">
         <div class="category ac-header">
           <img src="./UI/icons/openAccordion.svg" alt="close list" class="category__accordion">
@@ -87,12 +77,12 @@
           </ul>
           <p class="category__description" data-bind="text: desc"></p>
           <ul class="actions no-list-style">
+
             <li class="action action_type_edit">
               <img src="./UI/icons/category/edit.svg" alt="edit" class="action__icon">
             </li>
 
-            <!--            <li data-bind="click: removeTask" class="action action_type_delete">-->
-            <li data-bind="click: function(task, e){$parent.removeTask(task, e)}" class="action action_type_delete">
+            <li data-bind="click: function(task, e){$parent.removeCategory(task, e)}" class="action action_type_delete">
               <img src="./UI/icons/category/delete.svg" alt="delete" class="action__icon">
             </li>
 

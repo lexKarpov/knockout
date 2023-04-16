@@ -56,15 +56,17 @@
   </header>
   <main class="main">
 
-
-
-    <form class="search">
+    <form class="search" data-bind="submit: submitSearch">
       <label class="search__label">
-        <img src="./UI/icons/search.svg" alt="search" class="search__icon" data-bind="click: addTask">
+        <button class="search__submit" type="submit">
+          <img src="./UI/icons/search.svg" alt="search" class="search__icon">
+        </button>
 <!--        <input type="text" class="search__input" data-bind="textInput: inputTask">-->
         <input type="text" class="search__input" data-bind="textInput: inputTask">
 
-        <img src="./UI/icons/close.svg" alt="close" class="search__clear">
+<!--        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="visible: isInputLength">-->
+<!--        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="class: displayCloseIconStatus">-->
+        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="class: displayCloseIconStatus, click: clearInput" />
       </label>
 
     </form>

@@ -53,39 +53,37 @@
   let ChecklistViewModel = function (checklist) {
     this.checklist = checklist
     this.inputTask = ko.observable('')
-
     this.tasks = ko.observableArray(checklist.tasks)
 
-    // this.searchTask = ko.computed(function () {
-    //   console.log('sdfsdfsdf')
-    //
-    // })
-
-    this.searchTask = ko.computed(function() {
-
-
-      const findedTasks = this.tasks().filter(el => el.title.toLowerCase().trim().includes(this.inputTask().toLowerCase().trim()))
-      console.log(findedTasks)
-
-      // return this.inputTask() + " " + this.inputTask();
+    this.displayCloseIconStatus = ko.computed(function() {
+      return this.inputTask() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
     }, this, { pure: false });
 
+    this.clearInput = function (){
+      this.inputTask('')
+    }
+
+    this.searchTask = ko.computed(function() {
+      const findedTasks = this.tasks().filter(el => el.title.toLowerCase().trim().includes(this.inputTask().toLowerCase().trim()))
+      return findedTasks
+    }, this, { pure: false });
+
+    this.submitSearch = function (){
+      console.log(this.searchTask())
+    }
+
     this.addTask = function () {
-      this.checklist.addTask(this.newTaskTitle())
+      this.checklist.addTask(this.inputTask())
       this.inputTask('')
       this.tasks(this.checklist.tasks)
     }
+
 
     this.removeTask = function (task, event) {
       this.checklist.removeTask(task.id)
       this.tasks(this.checklist.tasks)
     }
   }
-
-  // ChecklistViewModel.searchTask = ko.computed(function (){
-  //   // return this.inputTask
-  //   console.log('sdfsdfsdf')
-  // }).bind("this value", 1, 2)
 
   let Checklist = function () {
     this.tasks = initialArray;
@@ -119,14 +117,9 @@
     this.removeTask = function (id) {
       this.tasks = this.tasks.filter(el => el.id !== id)
     };
-    //
-    // this.checkTask = function (id) {
-    //
-    // }
   }
 
   let checklist = new Checklist()
-
 
   ko.applyBindings(new ChecklistViewModel(checklist), document.getElementById('main'))
 

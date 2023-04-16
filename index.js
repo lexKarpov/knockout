@@ -3,58 +3,69 @@
     {
       id: 0,
       title: 'Обязательные для всех',
-      type: 'category',
+      type: 'requreAll',
       desc: 'Документы, обязательные для всех сотрудников без исключения',
-      items: [
-        {
-          title: 'Паспорт',
-          colors: ['blue'],
-          itemType: 'Обязательный',
-          desc: 'Для всех'
-        },
-        {
-          title: 'ИНН',
-          colors: ['orange'],
-          itemType: 'Обязательный',
-          desc: 'Для всех'
-        },
-      ],
     },
 
     {
       id: 1,
       title: 'Обязательные для трудоустройства',
-      type: 'category',
+      type: 'requireForWork',
       desc: 'Документы, без которых невозможно трудоустройство человека на какую бы то ни было должность в компании вне зависимости от граж',
-      items: [
-        {
-          title: 'Водительские права',
-          colors: ['orange'],
-          itemType: 'для водителей',
-          desc: 'Для водителей погрузчиков, грузовых автомобилей'
-        }
-      ],
     },
     {
       id: 2,
       title: 'Специальные',
-      type: 'category',
+      type: 'special',
       desc: '',
-      items: [
-        {
-          title: 'test',
-          colors: ['gray'],
-          itemType: 'test',
-          desc: 'Для всех'
-        }
-      ],
     },
   ]
-  let ChecklistViewModel = function () {
 
+  const initialElements = [
+    {
+      title: 'Паспорт',
+      colors: ['blue'],
+      itemType: 'Обязательный',
+      desc: 'Для всех',
+      binded: [
+        'requreAll',
+        'special'
+      ],
+    },
+    {
+      title: 'ИНН',
+      colors: ['orange'],
+      itemType: 'Обязательный',
+      desc: 'Для всех',
+      binded: [
+        'requreAll',
+        'special'
+      ],
+    },
+    {
+      title: 'Водительские права',
+      colors: ['orange'],
+      itemType: 'для водителей',
+      desc: 'Для водителей погрузчиков, грузовых автомобилей',
+      binded: [
+        'requreAll',
+        'special'
+      ],
+    },
+    {
+      title: 'Тестовое задание кандидата',
+      colors: [],
+      itemType: 'для кандидата',
+      desc: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
+      binded: [],
+    }
+  ]
+  let ChecklistViewModel = function () {
+    const testLength = 30
     this.searchInput = ko.observable('')
 
     this.categories = ko.observableArray(initialArray)
+    this.elements = ko.observableArray(initialElements)
 
     //CATEGORIES ACTIONS
     this.displayCloseIconStatus = ko.computed(function() {

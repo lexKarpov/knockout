@@ -61,7 +61,8 @@
           <img src="./UI/icons/search.svg" alt="search" class="search__icon">
         </button>
         <input type="text" class="search__input" data-bind="textInput: searchInput">
-        <img src="./UI/icons/close.svg" alt="close" class="search__clear" data-bind="class: displayCloseIconStatus, click: clearInput" />
+        <img src="./UI/icons/close.svg" alt="close" class="search__clear"
+             data-bind="class: displayCloseIconStatus, click: clearInput"/>
       </label>
     </form>
 
@@ -91,9 +92,12 @@
             </li>
           </ul>
         </div>
-        <ul class="elements no-list-style" data-bind="foreach: items">
+        <ul class="elements no-list-style" data-bind="foreach: $root.elements">
+          <!--        <ul class="elements no-list-style" data-bind="foreach: function(task, e){console.log('lsdkfj') return $root.elements}">-->
           <li class="elements__item">
             <h3 class="elements__title" data-bind="text: title"></h3>
+
+
             <ul class="colors no-list-style">
               <li class="colors__item colors__item_type_blue"/>
             </ul>
@@ -105,7 +109,6 @@
               <li class="action action_type_delete">
                 <img src="./UI/icons/category/delete.svg" alt="delete"
                      class="action__icon action__icon_type_delete-category">
-                <!--                <img onclick="console.log('yeeeee')" src="./UI/icons/category/delete.svg" alt="delete" class="action__icon action__icon_type_delete-category">-->
               </li>
               <li class="action action_type_move">
                 <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">

@@ -94,10 +94,11 @@
         </div>
         <ul class="elements no-list-style" data-bind="foreach: $root.elements">
           <!--        <ul class="elements no-list-style" data-bind="foreach: function(task, e){console.log('lsdkfj') return $root.elements}">-->
-          <li class="elements__item">
+          <li class="elements__item" data-bind="if: binded.includes($parent.type)">
+<!--            <div data-bind="if: binded.includes('requreAll')">-->
+<!--              <h3 class="elements__title" data-bind="text: title"></h3>-->
+<!--            </div>-->
             <h3 class="elements__title" data-bind="text: title"></h3>
-
-
             <ul class="colors no-list-style">
               <li class="colors__item colors__item_type_blue"/>
             </ul>

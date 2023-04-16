@@ -29,7 +29,6 @@
       desc: 'Для всех',
       binded: [
         'requreAll',
-        'special'
       ],
     },
     {
@@ -48,7 +47,6 @@
       itemType: 'для водителей',
       desc: 'Для водителей погрузчиков, грузовых автомобилей',
       binded: [
-        'requreAll',
         'special'
       ],
     },

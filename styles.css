@@ -58,6 +58,12 @@
 }
 
 /*main*/
+
+.main{
+  width: 1190px;
+  box-sizing: border-box;
+}
+
 .search__label{
   display: grid;
   grid-template-columns: max-content 1fr max-content;
@@ -211,7 +217,8 @@
 
 
 .category{
-  width: 1190px;
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid #DFE4EF;
   padding: 15px;
   display: grid;

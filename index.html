@@ -100,7 +100,7 @@
             </li>
           </ul>
         </div>
-        <ul class="elements no-list-style" data-bind="foreach: items">
+        <ul class="elements no-list-style" data-bind="foreach: items, style: { marginTop: type === 'uncategorized' ? '14px' : '0' }">
           <li class="elements__wrapper-item" data-bind="style: { marginLeft: $parent.type === 'uncategorized' ? '0' : '16px' }">
             <div class="elements__item">
               <h3 class="elements__title" data-bind="text: title"></h3>
@@ -140,6 +140,7 @@
         </ul>
       </li>
     </ul>
+    <h3 class="search-not-found" data-bind="visible: isNotResult">Поиск не дал результатов</h3>
   </main>
   <footer>
   </footer>

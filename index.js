@@ -1,4 +1,4 @@
-(function (ko) {
+function knockout(ko) {
   const initialArray = [
     {
       id: 0,
@@ -54,7 +54,7 @@
     },
     {
       id: 3,
-      title: '',
+      title: 'Без категории',
       type: 'uncategorized',
       desc: '',
       colors: [],
@@ -70,7 +70,7 @@
           title: 'Трудовой договор',
           colors: ['blue', 'gray'],
           itemType: '',
-          desc: 'Россия, Белоруссия, Украина, администратор филиала, повар-сушист, повар-пиццмейкер, повар горячего цеха',
+          desc: '',
           binded: ['uncategorized'],
         },
         {
@@ -84,31 +84,60 @@
     },
   ]
 
+
   let ViewModel = function () {
     this.searchInput = ko.observable('')
     this.searchedElements = ko.observableArray([])
     this.categories = ko.observableArray(initialArray)
+    this.isNotResult = ko.observable(false)
+    this.hasAccordeon = ko.observable(false)
 
     //CATEGORIES ACTIONS
-    this.displayCloseIconStatus = ko.computed(function() {
+    this.displayCloseIconStatus = ko.computed(function () {
       return this.searchInput() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
-    }, this, { pure: false });
+    }, this, {pure: false});
 
-    this.clearInput = function (){
+    this.clearInput = function () {
       this.searchInput('')
     }
 
-    this.search = ko.computed(function() {
-      if(!this.searchInput()) return null // если строка ввода пустая - не проводить проверки
-
-      const findedCategories = this.categories().filter(el => {
-        return el.title.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim()) || el.desc.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim())
+    this.search = ko.computed(function () {
+      // this.hasAccordeon() ? accordion.update() : console.log('aboba!')
+      this.hasAccordeon() ? console.log('truu') : console.log('aboba!')
+      if (!this.searchInput()) {  // если строка ввода пустая - не проводить проверки
+        this.categories(initialArray)
+        this.isNotResult(false)
+        this.hasAccordeon() ? accordion.update() : console.log('aboba!')
+        return null
+      }
+      this.hasAccordeon() ? accordion.update() : console.log('aboba!')
+      console.log(accordion)
+      const findedCategories = initialArray.filter(el => {
+        const subCategoryTitles = el.items.filter(element => {
+          return element.title.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim())
+        })
+        const subCategory = el.items.filter(element => {
+          return element.desc.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim())
+        })
+        const inputValue = this.searchInput().toLowerCase().trim()
+        const categoryTitle = el.title.toLowerCase().trim()
+        const categoryDesc = el.desc.toLowerCase().trim()
+        const findedCat = categoryTitle.includes(inputValue) || categoryDesc.includes(inputValue) || subCategory.length > 0 || subCategoryTitles.length > 0
+        return findedCat
       })
 
-      return findedCategories
-    }, this, { pure: false });
+      if (findedCategories.length < 1) {
+        this.isNotResult(true)
+        this.categories([])
+        return
+      }
 
-    this.submitSearch = function (){
+      this.categories(findedCategories)
+      return findedCategories
+
+    }, this, {pure: false});
+
+    this.submitSearch = function () {
       console.log(this.search())
     }
 
@@ -143,29 +172,38 @@
     }
     this.searchInput('')
   }
-  const viewModel = new ViewModel()
+  const init = true
+  const viewModel = new ViewModel(init)
   ko.applyBindings(viewModel, document.getElementById('main'))
 
-  const accordion = new Accordion('.info', {
-    duration: 400,
-    openOnInit: [0, viewModel.categories().length - 1], //при инициализации открывается первый и последний аккордеоны
-    showMultiple: true,
-    elementClass: 'category__wrapper',
-    triggerClass: 'category__accordion',
-    panelClass: 'elements',
-    beforeOpen: function (currentElement) {
-      currentElement.querySelector('.category__accordion').classList.add('rotate')
-    },
-    beforeClose: function (currentElement) {
-      currentElement.querySelector('.category__accordion').classList.remove('rotate')
-    }
-  });
+  return viewModel
+}
+
+const viewModel = knockout(ko)
 
 
+const input = document.querySelector('.search__input')
+// input.addEventListener('onchange', ()=> console.log(viewModel))
 
-  document.querySelector('.category__accordion').classList.add('rotate')
-})(ko)
+input.oninput = function () {
+  viewModel.hasAccordeon(true)
+}
+const accordion = new Accordion('.info', {
+  duration: 400,
+  openOnInit: [0, viewModel.categories().length - 1], //при инициализации открывается первый и последний аккордеоны
+  showMultiple: true,
+  elementClass: 'category__wrapper',
+  triggerClass: 'category__accordion',
+  panelClass: 'elements',
+  beforeOpen: function (currentElement) {
+    currentElement.querySelector('.category__accordion').classList.add('rotate')
+  },
+  beforeClose: function (currentElement) {
+    currentElement.querySelector('.category__accordion').classList.remove('rotate')
+  }
+});
 
+document.querySelector('.category__accordion').classList.add('rotate')
 
 
 

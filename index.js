@@ -84,7 +84,6 @@ function knockout(ko) {
     },
   ]
 
-
   let ViewModel = function () {
     this.searchInput = ko.observable('')
     this.searchedElements = ko.observableArray([])
@@ -92,7 +91,6 @@ function knockout(ko) {
     this.isNotResult = ko.observable(false)
     this.hasAccordeon = ko.observable(false)
 
-    //CATEGORIES ACTIONS
     this.displayCloseIconStatus = ko.computed(function () {
       return this.searchInput() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
     }, this, {pure: false});
@@ -102,16 +100,14 @@ function knockout(ko) {
     }
 
     this.search = ko.computed(function () {
-      // this.hasAccordeon() ? accordion.update() : console.log('aboba!')
       this.hasAccordeon() ? console.log('truu') : console.log('aboba!')
       if (!this.searchInput()) {  // если строка ввода пустая - не проводить проверки
         this.categories(initialArray)
         this.isNotResult(false)
-        this.hasAccordeon() ? accordion.update() : console.log('aboba!')
+        this.hasAccordeon() ? accordion.update() : null
         return null
       }
-      this.hasAccordeon() ? accordion.update() : console.log('aboba!')
-      console.log(accordion)
+      this.hasAccordeon() ? accordion.update() : null
       const findedCategories = initialArray.filter(el => {
         const subCategoryTitles = el.items.filter(element => {
           return element.title.toLowerCase().trim().includes(this.searchInput().toLowerCase().trim())

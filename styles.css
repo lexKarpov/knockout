@@ -225,6 +225,7 @@
   grid-template-columns: repeat(3, max-content) 1fr max-content;
   align-items: center;
   gap: 15px;
+  transition: box-shadow .2s ease-in;
 }
 
 .category__title{
@@ -244,6 +245,15 @@
 .action__icon{
   width: 12px;
   height: 12px;
+}
+
+.action__icon_type_move{
+  transition: transform .2s ease-in;
+}
+
+.action__icon_type_move:hover{
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .actions{
@@ -301,5 +311,11 @@
 .search-not-found{
   text-align: center;
   font-size: 32px;
+}
+
+
+.activeDrag{
+  box-shadow: 0 0 5px rgba(84, 84, 208, 0.76);
+  background-color: #fff;
 }
 

@@ -1,4 +1,5 @@
 function knockout(ko) {
+
   const initialArray = [
     {
       id: 0,
@@ -91,6 +92,10 @@ function knockout(ko) {
     this.isNotResult = ko.observable(false)
     this.hasAccordeon = ko.observable(false)
 
+    this.check = function (){
+      console.log('sldkfjsdf')
+    }
+
     this.displayCloseIconStatus = ko.computed(function () {
       return this.searchInput() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
     }, this, {pure: false});
@@ -100,7 +105,7 @@ function knockout(ko) {
     }
 
     this.search = ko.computed(function () {
-      this.hasAccordeon() ? console.log('truu') : console.log('aboba!')
+      this.hasAccordeon() ? console.log('truu') : null
       if (!this.searchInput()) {  // если строка ввода пустая - не проводить проверки
         this.categories(initialArray)
         this.isNotResult(false)
@@ -167,10 +172,50 @@ function knockout(ko) {
       )
     }
     this.searchInput('')
+
   }
+
+
   const init = true
   const viewModel = new ViewModel(init)
   ko.applyBindings(viewModel, document.getElementById('main'))
+
+  $(function () {
+    $("#sortable")
+      .sortable({
+        revert: true,
+        tolerance: "pointer",
+        axis: "y",
+        handle: ".action__icon_type_move",
+        start: function (event, ui){
+          // console.log(ui.item[0])
+          ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+        },
+        stop: function (event, ui) {
+          ui.item.children(".category__wrapper").triggerHandler("focusout");
+
+          ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
+
+          let newOrder = $(this).sortable("toArray");
+
+          viewModel.check()
+
+
+          let updatedTasks = [];
+          newOrder.forEach(function (id) {
+            id = +id.split('-')[1]
+            // console.log(id)
+            // let item = ChecklistViewModel.tasks.find(function (category) {
+            //   return category.title === id;
+            // });
+            // updatedTasks.push(item);
+          });
+          // Checklist.tasks(updatedTasks);
+        }
+      });
+  });
+
+
 
   return viewModel
 }

@@ -101,7 +101,7 @@
           </ul>
         </div>
         <ul class="elements no-list-style" data-bind="foreach: items, style: { marginTop: type === 'uncategorized' ? '14px' : '0' }">
-          <li class="elements__wrapper-item" data-bind="style: { marginLeft: $parent.type === 'uncategorized' ? '0' : '16px' }">
+          <li class="elements__wrapper-item" draggable="true" data-bind="style: { marginLeft: $parent.type === 'uncategorized' ? '0' : '16px' }">
             <div class="elements__item">
               <h3 class="elements__title" data-bind="text: title"></h3>
               <ul class="colors no-list-style">
@@ -130,8 +130,10 @@
                   <img src="./UI/icons/category/delete.svg" alt="delete"
                        class="action__icon action__icon_type_delete-category">
                 </li>
-                <li class="action">
-                  <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">
+                <li class="action action__icon_type_move-element">
+<!--                  <button class="action__button action__icon action__icon_type_move-element"></button>-->
+
+<!--                  <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">-->
                 </li>
               </ul>
             </div>

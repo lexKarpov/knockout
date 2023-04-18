@@ -103,10 +103,16 @@ function knockout(ko) {
     this.categories = ko.observableArray(initialArray)
     this.isNotResult = ko.observable(false)
     this.hasAccordeon = ko.observable(false)
-
-    this.check = function (){
+    this.startPositionY = ko.observable(0)
+    this.endPositionY = ko.observable(0)
+    this.check = function () {
       console.log('sldkfjsdf')
     }
+
+    // this.getCoordinatesOfElements = function (){
+    //   const elements = document.querySelectorAll('.elements__wrapper-item')
+    //   console.log(elements)
+    // }
 
     this.displayCloseIconStatus = ko.computed(function () {
       return this.searchInput() ? 'search__clear search__clear_active show' : 'search__clear search__clear_active';
@@ -189,92 +195,148 @@ function knockout(ko) {
 
   const init = true
   const viewModel = new ViewModel(init)
+
   ko.applyBindings(viewModel, document.getElementById('main'))
 
 
-  $(function () {
-      $(".elements")
-        .sortable({
-          connectWith: ".elements",
-          dropOnEmpty: false,
-          cursor: "move",
-          revert: true,
-          tolerance: "pointer",
-          axis: "y",
-          handle: ".action__icon_type_move-element",
-          forcePlaceholderSize: true,
-          helper: "clone",
-          placeholder: ".elements__wrapper-item",
-          start: function (event, ui){
-            ui.item[0].querySelector('.elements__item').classList.add('activeDrag') // добавляем подсветку для перетаскивания
-          },
-          receive: function( event, ui ) {
-            // console.log(event.target) // элемент, на который произвелось перетаскивание
-          },
-          sort: function( event, ui ) {
-            console.log(ui)
-          },
-          stop: function (event, ui) {
-            ui.item.children(".category__wrapper").triggerHandler("focusout");
-            // console.log(event)
-            // console.log(accordion)
-            // console.log($(event.target).attr("id"))
-            // console.log(event)
-            ui.item[0].querySelector('.elements__item').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
-
-            let newOrder = $(this).sortable("toArray");
-
-            let updatedTasks = [];
-            newOrder.forEach(function (id) {
-              id = +id.split('-')[1]
-            });
-
-          }
-        });
-    })
+  // $(function () {
+  //   $(".elements").sortable({
+  //     revert: true,
+  //     connectToSortable: ".category__wrapper",
+  //   });
+  //   $(".elements__wrapper-item").draggable({
+  //     connectToSortable: ".elements",
+  //     helper: "clone",
+  //     // revert: "invalid",
+  //     axis: "x",
+  //
+  //   });
+  //   $("ul, li").disableSelection();
+  // });
 
 
   $(function () {
-    $(".info")
+    $(".elements")
+    // $(".elements__wrapper-item")
       .sortable({
+        connectWith: ".elements",
         dropOnEmpty: false,
         cursor: "move",
         revert: true,
-        // tolerance: "pointer",
+        tolerance: "pointer",
         axis: "y",
-        handle: ".action__icon_type_move",
+        handle: ".action__icon_type_move-element",
+        forcePlaceholderSize: true,
+        helper: "clone",
+        placeholder: ".elements__wrapper-item",
+        activate: function( event, ui ) {
+          const initialPos = document.querySelector('.info').getBoundingClientRect();
+          // console.log(document.elementFromPoint(event.clientX, event.clientY))
+          // console.log(initialPos)
+          // console.log(ui)
+        },
 
         start: function (event, ui){
+          // console.log('event')
+          // // console.log(event.offsetY)
+          // console.log(ui.position)
 
-          ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+          ui.item[0].querySelector('.elements__item').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+        },
+        receive: function( event, ui ) {
+          // console.log(event.target) // элемент, на который произвелось перетаскивание
+        },
+        sort: function( event, ui ) {
+          // console.log(ui)
         },
         stop: function (event, ui) {
           ui.item.children(".category__wrapper").triggerHandler("focusout");
-
-          ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
-
+          ui.item[0].querySelector('.elements__item').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
           let newOrder = $(this).sortable("toArray");
-          // viewModel.check()
-
           let updatedTasks = [];
           newOrder.forEach(function (id) {
             id = +id.split('-')[1]
-            // console.log(id)
-            // let item = ChecklistViewModel.tasks.find(function (category) {
-            //   return category.title === id;
-            // });
-            // updatedTasks.push(item);
           });
-          // Checklist.tasks(updatedTasks);
+
         }
-      });
+      })
   })
 
+
   // $(function () {
-  //   $(".action__icon_type_move-element").mousedown((e) => {
-  //     e.target.closest('.elements__wrapper-item').setAttribute('draggable', true)
+  //   $(".info")
+  //     .sortable({
+  //       dropOnEmpty: false,
+  //       cursor: "move",
+  //       revert: true,
+  //       tolerance: "pointer",
+  //       axis: "y",
+  //       handle: ".action__icon_type_move",
+  //
+  //       start: function (event, ui) {
+  //         console.log(ui)
+  //         // ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+  //       },
+  //       stop: function (event, ui) {
+  //         ui.item.children(".category__wrapper").triggerHandler("focusout");
+  //
+  //         // ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
+  //
+  //         let newOrder = $(this).sortable("toArray");
+  //         // viewModel.check()
+  //
+  //         let updatedTasks = [];
+  //         newOrder.forEach(function (id) {
+  //           id = +id.split('-')[1]
+  //           // console.log(id)
+  //           // let item = ChecklistViewModel.tasks.find(function (category) {
+  //           //   return category.title === id;
+  //           // });
+  //           // updatedTasks.push(item);
+  //         });
+  //         // Checklist.tasks(updatedTasks);
+  //       }
+  //     })
+  //
+  //   $('.elements').sortable({
+  //     connectToSortable: ".category__wrapper",
+  //     dropOnEmpty: false,
   //   })
-  // });
+  //   $('.elements__wrapper-item').draggable({
+  //     connectToSortable: ".elements",
+  //
+  //     // helper: "clone",
+  //     revert: "true",
+  //     revertDuration: 150,
+  //     // scope: "tasks",
+  //     // refreshPositions: true,
+  //     axis: "y",
+  //     handle: ".action__icon_type_move-element",
+  //   });
+  //   $("ul, li").disableSelection();
+  // })
+
+
+  // $(function () {
+  //   let categories = $('.info');
+  //
+  //   // Обработчик события dragover для каждого элемента categories
+  //   categories.on('dragover', function (event) {
+  //     // Предотвращаем действие по умолчанию
+  //     event.preventDefault();
+  //     console.log('WORKED!!!!!!!!!!!!')
+  //     // Добавляем класс active-acc к элементу, над которым находится draggable
+  //     event.target.addClass('active-acc');
+  //     document.querySelector('.main').classList.add('RRRRRRRRRRRRRRRRRRR')
+  //   });
+  //
+  //   // Обработчик события dragleave для каждого элемента categories
+  //   categories.on('dragleave', function (event) {
+  //     console.log('WORKED!!!!!!!!!!!!')
+  //     // Удаляем класс active-acc у элемента, над которым находится draggable
+  //     $(this).removeClass('active-acc');
+  //   });
+  // })
 
 
   return viewModel
@@ -306,3 +368,92 @@ const accordion = new Accordion('.info', {
 });
 
 document.querySelector('.category__accordion').classList.add('rotate')
+
+
+
+//WHITH DRAGGABLE
+// $(function () {
+//   $(".info")
+//     .sortable({
+//       dropOnEmpty: false,
+//       cursor: "move",
+//       revert: true,
+//       tolerance: "pointer",
+//       axis: "y",
+//       handle: ".action__icon_type_move",
+//
+//       start: function (event, ui) {
+//         console.log(ui)
+//         // ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+//       },
+//       stop: function (event, ui) {
+//         ui.item.children(".category__wrapper").triggerHandler("focusout");
+//
+//         // ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
+//
+//         let newOrder = $(this).sortable("toArray");
+//         // viewModel.check()
+//
+//         let updatedTasks = [];
+//         newOrder.forEach(function (id) {
+//           id = +id.split('-')[1]
+//           // console.log(id)
+//           // let item = ChecklistViewModel.tasks.find(function (category) {
+//           //   return category.title === id;
+//           // });
+//           // updatedTasks.push(item);
+//         });
+//         // Checklist.tasks(updatedTasks);
+//       }
+//     })
+//
+//   $('.elements').sortable({
+//     connectToSortable: ".category__wrapper",
+//     // dropOnEmpty: false,
+//   })
+//   $('.elements__wrapper-item').draggable({
+//     connectToSortable: ".elements",
+//     // snap: true,
+//     // helper: "clone",
+//     revert: "true",
+//     revertDuration: 150,
+//     appendTo: ".category__wrapper",
+//     // scope: "tasks",
+//     // refreshPositions: true,
+//     stack: ".elements__wrapper-item",
+//     zIndex: 100,
+//     axis: "y",
+//     handle: ".action__icon_type_move-element",
+//   });
+//   // $("ul, li").disableSelection();
+// })
+
+
+
+
+
+//
+// $(document).ready(function(e) {
+//   // Находим перетаскиваемый элемент
+//   var draggable = $('.draggable');
+//   console.log(draggable)
+//   console.log(e)
+//   // Находим элементы с классом category__wrapper
+//   var categories = $('.category__wrapper');
+//
+//   // Обработчик события dragover для каждого элемента categories
+//   categories.on('dragover', function(event) {
+//     // Предотвращаем действие по умолчанию
+//     event.preventDefault();
+//
+//     // Добавляем класс active-acc к элементу, над которым находится draggable
+//     event.target.addClass('active-acc');
+//     document.querySelector('.main').classList.add('RRRRRRRRRRRRRRRRRRR')
+//   });
+//
+//   // Обработчик события dragleave для каждого элемента categories
+//   categories.on('dragleave', function(event) {
+//     // Удаляем класс active-acc у элемента, над которым находится draggable
+//     $(this).removeClass('active-acc');
+//   });
+// });

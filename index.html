@@ -95,9 +95,7 @@
             <li data-bind="click: function(task, e){$parent.removeCategory(task, e)}" class="action action_type_delete">
               <img src="./UI/icons/category/delete.svg" alt="delete" class="action__icon">
             </li>
-            <li class="action action_type_move">
-              <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move">
-            </li>
+            <li class="action action__icon_type_move"></li>
           </ul>
         </div>
         <ul class="elements no-list-style" data-bind="foreach: items, style: { marginTop: type === 'uncategorized' ? '14px' : '0' }">
@@ -130,8 +128,8 @@
                   <img src="./UI/icons/category/delete.svg" alt="delete"
                        class="action__icon action__icon_type_delete-category">
                 </li>
-                <li class="action">
-                  <img src="./UI/icons/category/move.svg" alt="move" class="action__icon action__icon_type_move-element">
+                <li class="action action__icon_type_move-element">
+
                 </li>
               </ul>
             </div>

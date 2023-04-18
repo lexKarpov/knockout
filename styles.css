@@ -247,13 +247,18 @@
   height: 12px;
 }
 
-.action__icon_type_move{
+.action__icon_type_move, .action__icon_type_move-element{
   transition: transform .2s ease-in;
+  /*border: none;*/
+  width: 12px;
+  height: 12px;
+  background: center / contain no-repeat url("./UI/icons/category/move.svg");
 }
 
-.action__icon_type_move:hover{
+.action__icon_type_move:hover, .action__icon_type_move-element:hover{
   transform: scale(1.2);
   cursor: pointer;
+  background: center / contain no-repeat url("./UI/icons/category/moveActive.svg");
 }
 
 .actions{
@@ -265,7 +270,7 @@
 
 /*element of category*/
 .elements__wrapper-item{
-  margin-left: 16px;
+  /*margin-left: 16px;*/
 }
 
 .elements__item{
@@ -317,5 +322,6 @@
 .activeDrag{
   box-shadow: 0 0 5px rgba(84, 84, 208, 0.76);
   background-color: #fff;
+
 }
 

@@ -160,6 +160,7 @@ function knockout(ko) {
     };
 
     this.addCategory = function (taskTitle) {
+
       this.categories().push(
         {
           id: this.categories.length,
@@ -192,90 +193,6 @@ function knockout(ko) {
   ko.applyBindings(viewModel, document.getElementById('main'))
 
 
-  $(function () {
-      $(".elements")
-        .sortable({
-          connectWith: ".elements",
-          dropOnEmpty: false,
-          cursor: "move",
-          revert: true,
-          tolerance: "pointer",
-          axis: "y",
-          handle: ".action__icon_type_move-element",
-          forcePlaceholderSize: true,
-          helper: "clone",
-          placeholder: ".elements__wrapper-item",
-          start: function (event, ui){
-            ui.item[0].querySelector('.elements__item').classList.add('activeDrag') // добавляем подсветку для перетаскивания
-          },
-          receive: function( event, ui ) {
-            // console.log(event.target) // элемент, на который произвелось перетаскивание
-          },
-          sort: function( event, ui ) {
-            console.log(ui)
-          },
-          stop: function (event, ui) {
-            ui.item.children(".category__wrapper").triggerHandler("focusout");
-            // console.log(event)
-            // console.log(accordion)
-            // console.log($(event.target).attr("id"))
-            // console.log(event)
-            ui.item[0].querySelector('.elements__item').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
-
-            let newOrder = $(this).sortable("toArray");
-
-            let updatedTasks = [];
-            newOrder.forEach(function (id) {
-              id = +id.split('-')[1]
-            });
-
-          }
-        });
-    })
-
-
-  $(function () {
-    $(".info")
-      .sortable({
-        dropOnEmpty: false,
-        cursor: "move",
-        revert: true,
-        // tolerance: "pointer",
-        axis: "y",
-        handle: ".action__icon_type_move",
-
-        start: function (event, ui){
-
-          ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
-        },
-        stop: function (event, ui) {
-          ui.item.children(".category__wrapper").triggerHandler("focusout");
-
-          ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
-
-          let newOrder = $(this).sortable("toArray");
-          // viewModel.check()
-
-          let updatedTasks = [];
-          newOrder.forEach(function (id) {
-            id = +id.split('-')[1]
-            // console.log(id)
-            // let item = ChecklistViewModel.tasks.find(function (category) {
-            //   return category.title === id;
-            // });
-            // updatedTasks.push(item);
-          });
-          // Checklist.tasks(updatedTasks);
-        }
-      });
-  })
-
-  // $(function () {
-  //   $(".action__icon_type_move-element").mousedown((e) => {
-  //     e.target.closest('.elements__wrapper-item').setAttribute('draggable', true)
-  //   })
-  // });
-
 
   return viewModel
 }
@@ -283,8 +200,60 @@ function knockout(ko) {
 const viewModel = knockout(ko)
 
 
+$(function () {
+  $(".elements")
+    .sortable({
+      connectWith: ".elements",
+      dropOnEmpty: false,
+      cursor: "move",
+      revert: true,
+      tolerance: "pointer",
+      axis: "y",
+      handle: ".action__icon_type_move-element",
+      forcePlaceholderSize: true,
+      helper: "clone",
+      placeholder: ".elements__wrapper-item",
+      stop: function (event, ui) {
+        ui.item.children(".elements__wrapper-item").triggerHandler("focusout");
+
+        let newOrder = $('.elements').sortable("toArray");
+        let updatedTasks = [];
+        newOrder.forEach(function (id) {
+          id = +id.split('-')[1]
+          console.log(id)
+          // let item = ChecklistViewModel.tasks.find(function (category) {
+          //   return category.title === id;
+          // });
+          // updatedTasks.push(item);
+        });
+
+        // viewModel.categories(initialArray)
+      }
+    });
+})
+
+
+$(function () {
+  $(".info")
+    .sortable({
+      dropOnEmpty: false,
+      cursor: "move",
+      revert: true,
+      axis: "y",
+      handle: ".action__icon_type_move",
+      start: function (event, ui){
+        ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+      },
+      stop: function (event, ui) {
+        ui.item.children(".category__wrapper").triggerHandler("focusout");
+        ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
+      }
+    });
+})
+
+
+
 const input = document.querySelector('.search__input')
-// input.addEventListener('onchange', ()=> console.log(viewModel))
 
 input.oninput = function () {
   viewModel.hasAccordeon(true)

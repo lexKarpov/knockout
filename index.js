@@ -198,17 +198,28 @@ function knockout(ko) {
           connectWith: ".elements",
           dropOnEmpty: false,
           cursor: "move",
-          // revert: true,
+          revert: true,
           tolerance: "pointer",
           axis: "y",
           handle: ".action__icon_type_move-element",
+          forcePlaceholderSize: true,
+          helper: "clone",
+          placeholder: ".elements__wrapper-item",
           start: function (event, ui){
-            // console.log(ui.item[0])
             ui.item[0].querySelector('.elements__item').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+          },
+          receive: function( event, ui ) {
+            // console.log(event.target) // элемент, на который произвелось перетаскивание
+          },
+          sort: function( event, ui ) {
+            console.log(ui)
           },
           stop: function (event, ui) {
             ui.item.children(".category__wrapper").triggerHandler("focusout");
-
+            // console.log(event)
+            // console.log(accordion)
+            // console.log($(event.target).attr("id"))
+            // console.log(event)
             ui.item[0].querySelector('.elements__item').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
 
             let newOrder = $(this).sortable("toArray");
@@ -257,7 +268,7 @@ function knockout(ko) {
           // Checklist.tasks(updatedTasks);
         }
       });
-  });
+  })
 
   // $(function () {
   //   $(".action__icon_type_move-element").mousedown((e) => {

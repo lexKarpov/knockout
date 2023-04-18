@@ -50,6 +50,18 @@ function knockout(ko) {
           colors: ['gray'],
           itemType: 'test',
           desc: 'Для всех'
+        },
+        {
+          title: 'test',
+          colors: ['gray'],
+          itemType: 'test',
+          desc: 'Для всех'
+        },
+        {
+          title: 'test',
+          colors: ['gray'],
+          itemType: 'test',
+          desc: 'Для всех'
         }
       ],
     },
@@ -175,20 +187,60 @@ function knockout(ko) {
 
   }
 
-
   const init = true
   const viewModel = new ViewModel(init)
   ko.applyBindings(viewModel, document.getElementById('main'))
 
+
+  $(function () {
+
+
+      $("#elem")
+        .sortable({
+          connectWith: "body",
+          // items: "> li",
+          // dropOnEmpty: false,
+          cursor: "move",
+          revert: true,
+          // tolerance: "pointer",
+          axis: "y",
+          handle: ".action__icon_type_move-element",
+          start: function (event, ui){
+            // console.log(ui.item[0])
+            ui.item[0].querySelector('.elements__item').classList.add('activeDrag') // добавляем подсветку для перетаскивания
+          },
+          stop: function (event, ui) {
+            ui.item.children(".category__wrapper").triggerHandler("focusout");
+
+            ui.item[0].querySelector('.elements__item').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
+
+            let newOrder = $(this).sortable("toArray");
+
+            let updatedTasks = [];
+            newOrder.forEach(function (id) {
+              id = +id.split('-')[1]
+            });
+
+          }
+        });
+    })
+
+  
+
+
+
   $(function () {
     $("#sortable")
       .sortable({
+        dropOnEmpty: false,
+        cursor: "move",
         revert: true,
-        tolerance: "pointer",
+        // tolerance: "pointer",
         axis: "y",
         handle: ".action__icon_type_move",
+
         start: function (event, ui){
-          // console.log(ui.item[0])
+
           ui.item[0].querySelector('.category').classList.add('activeDrag') // добавляем подсветку для перетаскивания
         },
         stop: function (event, ui) {
@@ -198,7 +250,7 @@ function knockout(ko) {
 
           let newOrder = $(this).sortable("toArray");
 
-          viewModel.check()
+          // viewModel.check()
 
 
           let updatedTasks = [];
@@ -215,6 +267,17 @@ function knockout(ko) {
       });
   });
 
+  // $(function () {
+  //   $(".action__icon_type_move-element").mousedown((e) => {
+  //     e.target.closest('.elements__wrapper-item').setAttribute('draggable', true)
+  //   })
+  // });
+
+
+
+
+
+
 
 
   return viewModel
@@ -229,6 +292,7 @@ const input = document.querySelector('.search__input')
 input.oninput = function () {
   viewModel.hasAccordeon(true)
 }
+
 const accordion = new Accordion('.info', {
   duration: 400,
   openOnInit: [0, viewModel.categories().length - 1], //при инициализации открывается первый и последний аккордеоны
@@ -245,9 +309,3 @@ const accordion = new Accordion('.info', {
 });
 
 document.querySelector('.category__accordion').classList.add('rotate')
-
-
-
-
-
-

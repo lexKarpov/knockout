@@ -193,16 +193,13 @@ function knockout(ko) {
 
 
   $(function () {
-
-
-      $("#elem")
+      $(".elements")
         .sortable({
-          connectWith: "body",
-          // items: "> li",
-          // dropOnEmpty: false,
+          connectWith: ".elements",
+          dropOnEmpty: false,
           cursor: "move",
-          revert: true,
-          // tolerance: "pointer",
+          // revert: true,
+          tolerance: "pointer",
           axis: "y",
           handle: ".action__icon_type_move-element",
           start: function (event, ui){
@@ -225,12 +222,9 @@ function knockout(ko) {
         });
     })
 
-  
-
-
 
   $(function () {
-    $("#sortable")
+    $(".info")
       .sortable({
         dropOnEmpty: false,
         cursor: "move",
@@ -249,9 +243,7 @@ function knockout(ko) {
           ui.item[0].querySelector('.category').classList.remove('activeDrag') // удаляем подсветку после перетаскивания
 
           let newOrder = $(this).sortable("toArray");
-
           // viewModel.check()
-
 
           let updatedTasks = [];
           newOrder.forEach(function (id) {
@@ -272,12 +264,6 @@ function knockout(ko) {
   //     e.target.closest('.elements__wrapper-item').setAttribute('draggable', true)
   //   })
   // });
-
-
-
-
-
-
 
 
   return viewModel

@@ -67,8 +67,7 @@
     </form>
     <ul class="info no-list-style" data-bind="foreach: categories" id="sortable">
       <li class="category__wrapper">
-<!--        <div class="category ac-header" data-bind="visible: type !== 'uncategorized'">-->
-        <div class="category ac-header">
+        <div class="category ac-header" data-bind="visible: type !== 'uncategorized'">
           <img src="./UI/icons/openAccordion.svg" alt="close list" class="category__accordion">
           <h2 class="category__title" data-bind="text: title"></h2>
           <ul class="colors no-list-style">
@@ -101,7 +100,7 @@
             </li>
           </ul>
         </div>
-        <ul class="elements no-list-style" id="elem" data-bind="foreach: items, style: { marginTop: type === 'uncategorized' ? '14px' : '0' }">
+        <ul class="elements no-list-style" data-bind="foreach: items, style: { marginTop: type === 'uncategorized' ? '14px' : '0' }">
           <li class="elements__wrapper-item" data-bind="style: { marginLeft: $parent.type === 'uncategorized' ? '0' : '16px' }">
             <div class="elements__item">
               <h3 class="elements__title" data-bind="text: title"></h3>
